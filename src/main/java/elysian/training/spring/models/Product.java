@@ -1,15 +1,21 @@
 package elysian.training.spring.models;
 
+import javax.persistence.*;
 import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.Optional;
 
+@Entity(name = "Product")
 public class Product extends AbstractEntity {
 
-    private final int id;
-    private final String name;
-    private final double price;
-    private final Discount discount;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(generator = "product_sequence_generator")
+    @SequenceGenerator(name = "product_sequence_generator", sequenceName = "product_sequence", allocationSize = 1)
+    private int id;
+    private String name;
+    private double price;
+    private Discount discount;
 
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("####.##");
 
@@ -27,7 +33,6 @@ public class Product extends AbstractEntity {
         this.discount = null;
     }
 
-
     public int getId() { return id; }
 
     public String getName() { return name; }
@@ -35,6 +40,14 @@ public class Product extends AbstractEntity {
     public double getPrice() { return price; }
 
     public Discount getDiscount() { return discount; }
+
+    public void setId(int id) { this.id = id; }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setPrice(double price) { this.price = price; }
+
+    public void setDiscount(Discount discount) { this.discount = discount; }
 
     @Override
     public boolean equals(Object o) {
